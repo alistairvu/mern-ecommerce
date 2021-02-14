@@ -1,8 +1,8 @@
 import { useState, useEffect, FormEvent } from "react"
-import { Link, useLocation, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { Message, Loader, FormContainer } from "../components"
+import { Message, Loader } from "../components"
 import { getUserDetails, updateUserDetails } from "../redux/userDetailsSlice"
 import { rootState } from "../redux"
 
@@ -13,7 +13,6 @@ export const ProfileScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("")
   const [message, setMessage] = useState<string>("")
 
-  const location = useLocation()
   const history = useHistory()
 
   const dispatch = useDispatch()

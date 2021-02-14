@@ -1,5 +1,36 @@
 import mongoose from "mongoose"
 
+export interface OrderSchema extends mongoose.Document {
+  name: mongoose.Schema.Types.ObjectId
+  orderItems: {
+    name: string
+    quantity: number
+    image: string
+    price: number
+    product: mongoose.Schema.Types.ObjectId
+  }
+  shippingAddress: {
+    address: string
+    city: string
+    postalCode: string
+    country: string
+  }
+  paymentMethod: string
+  paymentStatus: {
+    id: string
+    status: string
+    update_time: string
+    email_address: string
+  }
+  taxPrice: number
+  shippingPrice: number
+  totalPrice: number
+  isPaid: boolean
+  paidAt: Date
+  isDelivered: boolean
+  deliveredAt: Date
+}
+
 const orderSchema = new mongoose.Schema(
   {
     name: {
@@ -73,6 +104,6 @@ const orderSchema = new mongoose.Schema(
   }
 )
 
-const Order = mongoose.model("Order", orderSchema)
+const Order = mongoose.model<OrderSchema>("Order", orderSchema)
 
 export default Order

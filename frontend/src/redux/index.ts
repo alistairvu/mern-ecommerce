@@ -17,17 +17,21 @@ import {
 import productDetailReducer from "./productDetailSlice"
 import productListReducer from "./productListSlice"
 import cartReducer from "./cartSlice"
+import userAuthReducer from "./userAuthSlice"
+import userDetailsReducer from "./userDetailsSlice"
 
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetail: productDetailReducer,
   cart: cartReducer,
+  currentUser: userAuthReducer,
+  userDetails: userDetailsReducer,
 })
 
 const persistConfig = {
-  key: "@user_cart",
+  key: "@proshop",
   storage: storage,
-  whitelist: ["cart"],
+  whitelist: ["cart", "currentUser"],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -43,4 +47,5 @@ const store = configureStore({
 
 let persistor = persistStore(store)
 
+export type rootState = ReturnType<typeof store.getState>
 export { store, persistor }

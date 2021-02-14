@@ -17,8 +17,6 @@ export const HomeScreen = () => {
   )
   const { loading, error, products }: ProductListInterface = productList
 
-  console.log(productList)
-
   useEffect(() => {
     dispatch(fetchProductList())
   }, [dispatch])

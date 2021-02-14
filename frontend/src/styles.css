@@ -16,6 +16,10 @@ h1 {
   padding: 1rem 0;
 }
 
+select option {
+  padding: 0rem;
+}
+
 .rating span {
   margin: 0.1rem;
 }

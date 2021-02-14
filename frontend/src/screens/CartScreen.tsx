@@ -17,7 +17,6 @@ export const CartScreen = () => {
   const { cartItems, loading } = useSelector(
     (state: { cart: any }) => state.cart
   )
-  console.log(cartItems)
 
   useEffect(() => {
     if (id) {
@@ -62,7 +61,7 @@ export const CartScreen = () => {
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
-                  <Col md={2}>
+                  <Col md={3}>
                     <Form.Control
                       as="select"
                       value={`${item.quantity}`}
@@ -82,7 +81,7 @@ export const CartScreen = () => {
                       ))}
                     </Form.Control>
                   </Col>
-                  <Col md={2}>
+                  <Col md={1}>
                     <Button
                       type="button"
                       variant="light"

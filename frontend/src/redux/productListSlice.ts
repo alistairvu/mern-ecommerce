@@ -30,13 +30,13 @@ const productListSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchProductList.pending, (state, action) => ({
-      ...state,
+      error: "",
       loading: true,
       products: [],
     }))
 
     builder.addCase(fetchProductList.rejected, (state, action) => ({
-      ...state,
+      products: [],
       loading: false,
       error: action.payload as string,
     }))

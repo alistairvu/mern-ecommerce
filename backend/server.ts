@@ -4,6 +4,7 @@ import cors from "cors"
 import connectDB from "./config/db"
 import productRoutes from "./routes/productRoutes"
 import userRoutes from "./routes/userRoutes"
+import orderRoutes from "./routes/orderRoutes"
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes)
 app.use("/api/users", userRoutes)
+app.use("/api/orders", orderRoutes)
 
 app.listen(PORT, () =>
   console.log(`Experience the magic at http://localhost:${PORT}`)

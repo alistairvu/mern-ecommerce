@@ -6,6 +6,7 @@ import { RegisterScreen } from "./RegisterScreen"
 import { ProfileScreen } from "./ProfileScreen"
 import { PaymentScreen } from "./PaymentScreen"
 import { ShippingScreen } from "./ShippingScreen"
+import { PlaceOrderScreen } from "./PlaceOrderScreen"
 
 export {
   HomeScreen,
@@ -16,4 +17,5 @@ export {
   ProfileScreen,
   ShippingScreen,
   PaymentScreen,
+  PlaceOrderScreen,
 }

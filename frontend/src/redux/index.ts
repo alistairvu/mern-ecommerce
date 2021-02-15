@@ -19,6 +19,7 @@ import productListReducer from "./productListSlice"
 import cartReducer from "./cartSlice"
 import userAuthReducer from "./userAuthSlice"
 import userDetailsReducer from "./userDetailsSlice"
+import orderCreateReducer from "./orderCreateSlice"
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   currentUser: userAuthReducer,
   userDetails: userDetailsReducer,
+  orderCreate: orderCreateReducer,
 })
 
 const persistConfig = {

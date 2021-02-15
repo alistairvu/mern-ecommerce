@@ -19,9 +19,7 @@ export const ProfileScreen = () => {
   const userDetails = useSelector((state: rootState) => state.userDetails)
   const { loading, error, user } = userDetails
 
-  const { user: userInfo } = useSelector(
-    (state: rootState) => state.currentUser
-  )
+  const { userInfo } = useSelector((state: rootState) => state.currentUser)
 
   const { success } = useSelector((state: rootState) => state.userDetails)
 

@@ -2,8 +2,9 @@ import { useState, useEffect, FormEvent } from "react"
 import { Link, useLocation, useHistory } from "react-router-dom"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { Message, Loader, FormContainer } from "../components"
+import { Message, Loader, FormContainer, CheckoutSteps } from "../components"
 import { userLogin } from "../redux/userAuthSlice"
+import { rootState } from "../redux"
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState<string>("")
@@ -14,16 +15,14 @@ export const LoginScreen = () => {
   const redirect = location.search ? location.search.split("=")[1] : ""
 
   const dispatch = useDispatch()
-  const currentUser = useSelector(
-    (state: { currentUser: any }) => state.currentUser
-  )
-  const { loading, error, user } = currentUser
+  const currentUser = useSelector((state: rootState) => state.currentUser)
+  const { loading, error, userInfo } = currentUser
 
   useEffect(() => {
-    if (user._id.length > 0) {
+    if (userInfo._id.length > 0) {
       history.push(redirect)
     }
-  }, [user, history, redirect])
+  }, [userInfo, history, redirect])
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,6 +31,7 @@ export const LoginScreen = () => {
 
   return (
     <FormContainer>
+      {redirect === "shipping" && <CheckoutSteps step1 />}
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}

@@ -76,7 +76,7 @@ const blankUser = {
 const initialState = {
   loading: false,
   error: "",
-  user: blankUser,
+  userInfo: blankUser,
 }
 
 const userAuthSlice = createSlice({
@@ -90,37 +90,37 @@ const userAuthSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(userLogin.pending, (state, action) => ({
       error: "",
-      user: blankUser,
+      userInfo: blankUser,
       loading: true,
     }))
 
     builder.addCase(userLogin.rejected, (state, action) => ({
       loading: false,
-      user: blankUser,
+      userInfo: blankUser,
       error: action.payload as string,
     }))
 
     builder.addCase(userLogin.fulfilled, (state, action) => ({
       loading: false,
-      user: action.payload,
+      userInfo: action.payload,
       error: "",
     }))
 
     builder.addCase(userRegister.pending, (state, action) => ({
       error: "",
-      user: blankUser,
+      userInfo: blankUser,
       loading: true,
     }))
 
     builder.addCase(userRegister.rejected, (state, action) => ({
       loading: false,
-      user: blankUser,
+      userInfo: blankUser,
       error: action.payload as string,
     }))
 
     builder.addCase(userRegister.fulfilled, (state, action) => ({
       loading: false,
-      user: action.payload,
+      userInfo: action.payload,
       error: "",
     }))
   },

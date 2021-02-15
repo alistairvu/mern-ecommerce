@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
+interface AddressInterface {
+  address: string
+  city: string
+  postalCode: string
+  country: string
+}
+
 export const addItemToCart = createAsyncThunk(
   "cart/addItem",
   async ({ id, quantity }: { id: string; quantity: number }, thunkApi) => {
@@ -22,6 +29,8 @@ const cartSlice = createSlice({
   initialState: {
     cartItems: [] as any[],
     loading: false,
+    shippingAddress: {} as AddressInterface,
+    paymentMethod: "",
   },
 
   reducers: {
@@ -30,6 +39,14 @@ const cartSlice = createSlice({
         ...state,
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       }
+    },
+
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload
+    },
+
+    savePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload
     },
   },
 
@@ -46,6 +63,7 @@ const cartSlice = createSlice({
 
       if (existItem) {
         return {
+          ...state,
           loading: false,
           cartItems: state.cartItems.map((x: any) =>
             x.product === existItem.product ? item : x
@@ -60,5 +78,9 @@ const cartSlice = createSlice({
 })
 
 const { reducer: cartReducer } = cartSlice
-export const { removeItemFromCart } = cartSlice.actions
+export const {
+  removeItemFromCart,
+  saveShippingAddress,
+  savePaymentMethod,
+} = cartSlice.actions
 export default cartReducer

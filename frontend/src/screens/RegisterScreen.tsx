@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader, FormContainer } from "../components"
 import { userRegister } from "../redux/userAuthSlice"
+import { rootState } from "../redux"
 
 export const RegisterScreen = () => {
   const [name, setName] = useState<string>("")
@@ -17,16 +18,14 @@ export const RegisterScreen = () => {
   const redirect = location.search ? location.search.split("=")[1] : ""
 
   const dispatch = useDispatch()
-  const currentUser = useSelector(
-    (state: { currentUser: any }) => state.currentUser
-  )
-  const { loading, error, user } = currentUser
+  const currentUser = useSelector((state: rootState) => state.currentUser)
+  const { loading, error, userInfo } = currentUser
 
   useEffect(() => {
-    if (user._id.length > 0) {
+    if (userInfo._id.length > 0) {
       history.push(redirect)
     }
-  }, [user, history, redirect])
+  }, [userInfo, history, redirect])
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -53,6 +52,7 @@ export const RegisterScreen = () => {
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </Form.Group>
         <Form.Group controlId="email">
@@ -62,6 +62,7 @@ export const RegisterScreen = () => {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </Form.Group>
         <Form.Group controlId="password">
@@ -71,6 +72,7 @@ export const RegisterScreen = () => {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </Form.Group>
         <Form.Group controlId="confirmPassword">
@@ -80,6 +82,7 @@ export const RegisterScreen = () => {
             placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
         </Form.Group>
 

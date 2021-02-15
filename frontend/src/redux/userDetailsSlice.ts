@@ -6,7 +6,7 @@ export const getUserDetails = createAsyncThunk(
   "userDetails/getUserDetails",
   async (id: string, thunkApi) => {
     const {
-      currentUser: { user },
+      currentUser: { userInfo: user },
     } = thunkApi.getState() as rootState
 
     try {
@@ -37,7 +37,7 @@ export const updateUserDetails = createAsyncThunk(
   "userDetails/updateUserDetails",
   async (user: any, thunkApi) => {
     const {
-      currentUser: { user: userInfo },
+      currentUser: { userInfo: userInfo },
     } = thunkApi.getState() as rootState
 
     try {

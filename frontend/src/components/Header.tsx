@@ -2,13 +2,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { LinkContainer } from "react-router-bootstrap"
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap"
 import { userLogout } from "../redux/userAuthSlice"
+import { rootState } from "../redux"
 
 export const Header = () => {
   const dispatch = useDispatch()
-  const currentUser = useSelector(
-    (state: { currentUser: any }) => state.currentUser
-  )
-  const { user } = currentUser
+  const currentUser = useSelector((state: rootState) => state.currentUser)
+  const { userInfo } = currentUser
 
   const logoutHandler = () => {
     dispatch(userLogout())
@@ -29,8 +28,8 @@ export const Header = () => {
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              {user._id.length > 0 ? (
-                <NavDropdown title={user.name} id="username">
+              {userInfo._id.length > 0 ? (
+                <NavDropdown title={userInfo.name} id="username">
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>

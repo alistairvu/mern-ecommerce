@@ -89,7 +89,7 @@ const userDetailsSlice = createSlice({
   initialState: initialState,
 
   reducers: {
-    userLogout: () => initialState,
+    resetUserDetails: () => initialState,
   },
 
   extraReducers: (builder) => {
@@ -135,4 +135,5 @@ const userDetailsSlice = createSlice({
 })
 
 const { reducer: userDetailsReducer } = userDetailsSlice
+export const { resetUserDetails } = userDetailsSlice.actions
 export default userDetailsReducer

@@ -3,6 +3,8 @@ import { LinkContainer } from "react-router-bootstrap"
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap"
 import { userLogout } from "../redux/userAuthSlice"
 import { rootState } from "../redux"
+import { resetUserDetails } from "../redux/userDetailsSlice"
+import { resetOrderList } from "../redux/orderListSlice"
 
 export const Header = () => {
   const dispatch = useDispatch()
@@ -11,6 +13,8 @@ export const Header = () => {
 
   const logoutHandler = () => {
     dispatch(userLogout())
+    dispatch(resetUserDetails())
+    dispatch(resetOrderList())
   }
 
   return (

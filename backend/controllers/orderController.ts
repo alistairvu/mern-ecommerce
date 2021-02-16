@@ -47,9 +47,15 @@ export const addOrderItems = asyncHandler(async (req: UserRequest, res) => {
 export const getOrderById = asyncHandler(async (req: UserRequest, res) => {
   const { id } = req.params
   const order = await Order.findById(id).populate("user", "name email")
+  const rawOrder = await Order.findById(id)
+  console.log(rawOrder.user.toString() === req.user._id.toString())
 
   if (order) {
-    res.json(order)
+    if (rawOrder.user.toString() === req.user._id.toString()) {
+      res.json(order)
+    } else {
+      res.status(400).json({ message: "You cannot view this order." })
+    }
   } else {
     res.status(404).json({ message: "Order not found" })
   }
@@ -78,4 +84,13 @@ export const updateOrderToPaid = asyncHandler(async (req: UserRequest, res) => {
   } else {
     res.status(404).json({ message: "Order not found" })
   }
+})
+
+// @desc    Get logged in user's orders
+// @route   GET /api/orders/my-orders
+// @access  Private
+export const getMyOrders = asyncHandler(async (req: UserRequest, res) => {
+  console.log(req.user)
+  const orders = await Order.find({ user: req.user._id })
+  res.json(orders)
 })

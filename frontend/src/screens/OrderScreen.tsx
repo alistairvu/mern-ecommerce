@@ -111,7 +111,11 @@ export const OrderScreen = () => {
                 {paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">
+                  Paid on{" "}
+                  {order.paidAt &&
+                    new Date(order.paidAt!.toString())?.toLocaleString("en-AU")}
+                </Message>
               ) : (
                 <Message variant="danger">Not Paid</Message>
               )}

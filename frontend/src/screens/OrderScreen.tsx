@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useHistory, Link, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Row, Col, ListGroup, Image, Card } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
@@ -19,7 +19,6 @@ declare global {
 export const OrderScreen = () => {
   const [sdkReady, setSdkReady] = useState<boolean>(false)
 
-  const history = useHistory()
   const { id } = useParams<{ id: string }>()
 
   const dispatch = useDispatch()

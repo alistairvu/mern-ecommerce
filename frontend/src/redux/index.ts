@@ -14,12 +14,14 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist"
-import productDetailReducer from "./productDetailSlice"
+import productDetailReducer from "./productDetailsSlice"
 import productListReducer from "./productListSlice"
 import cartReducer from "./cartSlice"
 import userAuthReducer from "./userAuthSlice"
 import userDetailsReducer from "./userDetailsSlice"
 import orderCreateReducer from "./orderCreateSlice"
+import orderDetailsReducer from "./orderDetailsSlice"
+import orderPayReducer from "./orderPaySlice"
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -28,6 +30,8 @@ const rootReducer = combineReducers({
   currentUser: userAuthReducer,
   userDetails: userDetailsReducer,
   orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 })
 
 const persistConfig = {

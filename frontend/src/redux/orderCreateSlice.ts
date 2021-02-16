@@ -56,7 +56,9 @@ const orderCreateSlice = createSlice({
   name: "order",
   initialState,
 
-  reducers: {},
+  reducers: {
+    resetOrder: () => initialState,
+  },
 
   extraReducers: (builder) => {
     builder.addCase(createOrder.pending, (state, action) => ({
@@ -83,4 +85,5 @@ const orderCreateSlice = createSlice({
 })
 
 const { reducer: orderCreateReducer } = orderCreateSlice
+export const { resetOrder } = orderCreateSlice.actions
 export default orderCreateReducer

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { CheckoutSteps, FormContainer } from "../components"
 import { rootState } from "../redux"
 import { savePaymentMethod } from "../redux/cartSlice"
+import { resetOrder } from "../redux/orderCreateSlice"
+import { resetOrderDetails } from "../redux/orderDetailsSlice"
 
 export const PaymentScreen = () => {
   const history = useHistory()
@@ -21,6 +23,8 @@ export const PaymentScreen = () => {
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(savePaymentMethod(paymentMethod))
+    dispatch(resetOrder())
+    dispatch(resetOrderDetails())
     history.push("/place-order")
   }
 

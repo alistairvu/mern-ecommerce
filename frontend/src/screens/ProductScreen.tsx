@@ -3,7 +3,7 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from "react-bootstrap"
 import { Loader, Message, Rating } from "../components"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchProductDetail } from "../redux/productDetailSlice"
+import { fetchProductDetails } from "../redux/productDetailsSlice"
 
 export const ProductScreen = () => {
   const [quantity, setQuantity] = useState<number>(1)
@@ -17,7 +17,7 @@ export const ProductScreen = () => {
   const { loading, error, product } = productDetail
 
   useEffect(() => {
-    dispatch(fetchProductDetail(id))
+    dispatch(fetchProductDetails(id))
   }, [dispatch, id])
 
   const addToCardHandler = () => {

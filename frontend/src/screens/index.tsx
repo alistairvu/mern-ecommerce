@@ -7,6 +7,7 @@ import { ProfileScreen } from "./ProfileScreen"
 import { PaymentScreen } from "./PaymentScreen"
 import { ShippingScreen } from "./ShippingScreen"
 import { PlaceOrderScreen } from "./PlaceOrderScreen"
+import { OrderScreen } from "./OrderScreen"
 
 export {
   HomeScreen,
@@ -18,4 +19,5 @@ export {
   ShippingScreen,
   PaymentScreen,
   PlaceOrderScreen,
+  OrderScreen,
 }

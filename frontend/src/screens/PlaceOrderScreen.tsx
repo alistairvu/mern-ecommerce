@@ -1,8 +1,8 @@
-import { useState, useEffect, FormEvent } from "react"
+import { useEffect } from "react"
 import { useHistory, Link } from "react-router-dom"
-import { Form, Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap"
+import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { CheckoutSteps, FormContainer, Message } from "../components"
+import { CheckoutSteps, Loader, Message } from "../components"
 import { rootState } from "../redux"
 import { createOrder, OrderInterface } from "../redux/orderCreateSlice"
 
@@ -18,10 +18,10 @@ export const PlaceOrderScreen = () => {
   )
   const shippingPrice = itemsPrice > 100 ? 0 : 100
   const taxPrice = Number((0.15 * itemsPrice).toFixed(2))
-  const totalPrice = itemsPrice + shippingPrice + taxPrice
+  const totalPrice: number = (itemsPrice + shippingPrice + taxPrice).toFixed(2)
 
   const orderCreate = useSelector((state: rootState) => state.orderCreate)
-  const { order, success, error } = orderCreate
+  const { order, success, error, loading } = orderCreate
 
   useEffect(() => {
     if (success) {
@@ -40,7 +40,11 @@ export const PlaceOrderScreen = () => {
       taxPrice: taxPrice,
       totalPrice: totalPrice,
     }
+    console.log(order)
     dispatch(createOrder(order))
+    // if (success) {
+    //   history.push(`/order/${order._id}`)
+    // }
   }
 
   return (
@@ -134,7 +138,7 @@ export const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>${totalPrice.toFixed(2)}</Col>
+                  <Col>${totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -143,14 +147,18 @@ export const PlaceOrderScreen = () => {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <Button
-                  type="button"
-                  className="btn-block"
-                  disabled={cartItems.length === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <Button
+                    type="button"
+                    className="btn-block"
+                    disabled={cartItems.length === 0}
+                    onClick={placeOrderHandler}
+                  >
+                    Place Order
+                  </Button>
+                )}
               </ListGroup.Item>
             </ListGroup>
           </Card>

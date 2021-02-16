@@ -1,14 +1,14 @@
 import mongoose from "mongoose"
 
 export interface OrderSchema extends mongoose.Document {
-  name: mongoose.Schema.Types.ObjectId
+  user: mongoose.Schema.Types.ObjectId
   orderItems: {
     name: string
     quantity: number
     image: string
     price: number
     product: mongoose.Schema.Types.ObjectId
-  }
+  }[]
   shippingAddress: {
     address: string
     city: string
@@ -16,12 +16,13 @@ export interface OrderSchema extends mongoose.Document {
     country: string
   }
   paymentMethod: string
-  paymentStatus: {
+  paymentResult: {
     id: string
     status: string
     update_time: string
     email_address: string
   }
+  itemsPrice: number
   taxPrice: number
   shippingPrice: number
   totalPrice: number
@@ -33,7 +34,7 @@ export interface OrderSchema extends mongoose.Document {
 
 const orderSchema = new mongoose.Schema(
   {
-    name: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
@@ -66,6 +67,11 @@ const orderSchema = new mongoose.Schema(
       status: { type: String },
       update_time: { type: String },
       email_address: { type: String },
+    },
+    itemsPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
     },
     taxPrice: {
       type: Number,

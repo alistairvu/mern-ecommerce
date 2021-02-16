@@ -16,13 +16,17 @@ const PORT = process.env.PORT || 6960
 app.use(express.json())
 app.use(cors())
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("API is running...")
 })
 
 app.use("/api/products", productRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/orders", orderRoutes)
+
+app.get("/api/config/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID)
+})
 
 app.listen(PORT, () =>
   console.log(`Experience the magic at http://localhost:${PORT}`)

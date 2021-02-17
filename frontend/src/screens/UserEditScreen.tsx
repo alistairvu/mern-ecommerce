@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from "react"
-import { Link, useLocation, useHistory, useParams } from "react-router-dom"
-import { Form, Button, Row, Col } from "react-bootstrap"
+import { Link, useParams } from "react-router-dom"
+import { Form, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader, FormContainer } from "../components"
 import { rootState } from "../redux"
@@ -14,8 +14,6 @@ export const UserEditScreen = () => {
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
-
-  const location = useLocation()
 
   const dispatch = useDispatch()
   const userDetails = useSelector((state: rootState) => state.userDetails)

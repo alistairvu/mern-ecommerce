@@ -11,7 +11,7 @@ interface AddressInterface {
 export const addItemToCart = createAsyncThunk(
   "cart/addItem",
   async ({ id, quantity }: { id: string; quantity: number }, thunkApi) => {
-    const { data } = await axios.get(`http://localhost:6960/api/products/${id}`)
+    const { data } = await axios.get(`/api/products/${id}`)
 
     return {
       product: data._id,

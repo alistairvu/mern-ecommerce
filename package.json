@@ -9,6 +9,7 @@
     "@types/cors": "^2.8.9",
     "@types/dotenv": "^8.2.0",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/multer": "^1.4.5",
     "@types/node": "^14.14.27",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",

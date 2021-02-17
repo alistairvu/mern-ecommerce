@@ -17,10 +17,7 @@ export const fetchUserList = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.get(
-        `http://localhost:6960/api/users/`,
-        config
-      )
+      const { data } = await axios.get(`/api/users/`, config)
 
       return data
     } catch (error) {

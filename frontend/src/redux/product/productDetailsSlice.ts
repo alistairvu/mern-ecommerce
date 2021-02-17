@@ -5,9 +5,7 @@ export const fetchProductDetails = createAsyncThunk(
   "productDetails/fetchProductDetails",
   async (id: string, thunkApi) => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:6960/api/products/${id}`
-      )
+      const { data } = await axios.get(`/api/products/${id}`)
       return data
     } catch (error) {
       console.log(error)

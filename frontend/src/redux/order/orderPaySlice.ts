@@ -21,7 +21,7 @@ export const payOrder = createAsyncThunk(
       }
 
       const { data } = await axios.put(
-        `http://localhost:6960/api/orders/${orderId}/pay`,
+        `/api/orders/${orderId}/pay`,
         paymentResult,
         config
       )

@@ -17,10 +17,7 @@ export const fetchUserDetails = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.get(
-        `http://localhost:6960/api/users/${id}`,
-        config
-      )
+      const { data } = await axios.get(`/api/users/${id}`, config)
 
       return data
     } catch (error) {
@@ -48,11 +45,7 @@ export const updateUserDetails = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.put(
-        `http://localhost:6960/api/users/profile`,
-        user,
-        config
-      )
+      const { data } = await axios.put(`/api/users/profile`, user, config)
 
       thunkApi.dispatch({
         type: "user/userLogin/fulfilled",

@@ -17,10 +17,7 @@ export const deleteUser = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.delete(
-        `http://localhost:6960/api/users/${id}`,
-        config
-      )
+      const { data } = await axios.delete(`/api/users/${id}`, config)
 
       return data
     } catch (error) {

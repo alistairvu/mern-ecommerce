@@ -22,7 +22,7 @@ export const updateUser = createAsyncThunk(
       }
 
       const { data } = await axios.put(
-        `http://localhost:6960/api/users/${userInfo._id}`,
+        `/api/users/${userInfo._id}`,
         userInfo,
         config
       )

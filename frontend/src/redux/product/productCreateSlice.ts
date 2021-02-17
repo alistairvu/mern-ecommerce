@@ -19,11 +19,7 @@ export const createProduct = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.post(
-        `http://localhost:6960/api/products`,
-        null,
-        config
-      )
+      const { data } = await axios.post(`/api/products`, null, config)
 
       return data
     } catch (error) {

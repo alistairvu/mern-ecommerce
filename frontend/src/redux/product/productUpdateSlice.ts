@@ -18,7 +18,7 @@ export const updateProduct = createAsyncThunk(
       }
 
       const { data } = await axios.put(
-        `http://localhost:6960/api/products/${updateData.id}`,
+        `/api/products/${updateData.id}`,
         updateData,
         config
       )

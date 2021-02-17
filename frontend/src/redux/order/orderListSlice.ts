@@ -17,10 +17,7 @@ export const fetchOrderList = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.get(
-        `http://localhost:6960/api/orders/my-orders`,
-        config
-      )
+      const { data } = await axios.get(`/api/orders/my-orders`, config)
 
       console.log(data)
       return data

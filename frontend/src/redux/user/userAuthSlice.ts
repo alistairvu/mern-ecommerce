@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk(
       }
 
       const { data } = await axios.post(
-        "http://localhost:6960/api/users",
+        "/api/users",
         { name, email, password },
         config
       )
@@ -49,7 +49,7 @@ export const loginUser = createAsyncThunk(
       }
 
       const { data } = await axios.post(
-        "http://localhost:6960/api/users/login",
+        "/api/users/login",
         { email, password },
         config
       )

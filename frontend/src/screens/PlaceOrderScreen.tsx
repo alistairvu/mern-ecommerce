@@ -4,7 +4,7 @@ import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { CheckoutSteps, Loader, Message } from "../components"
 import { rootState } from "../redux"
-import { createOrder, OrderInterface } from "../redux/orderCreateSlice"
+import { createOrder, OrderInterface } from "../redux/order/orderCreateSlice"
 
 export const PlaceOrderScreen = () => {
   const history = useHistory()

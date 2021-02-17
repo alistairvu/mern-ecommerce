@@ -3,7 +3,7 @@ import { Link, useLocation, useHistory } from "react-router-dom"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader, FormContainer, CheckoutSteps } from "../components"
-import { loginUser } from "../redux/userAuthSlice"
+import { loginUser } from "../redux/user/userAuthSlice"
 import { rootState } from "../redux"
 
 export const LoginScreen = () => {

@@ -3,8 +3,11 @@ import { useHistory } from "react-router-dom"
 import { Form, Button, Row, Col, Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
-import { fetchUserDetails, updateUserDetails } from "../redux/userDetailsSlice"
-import { fetchOrderList } from "../redux/orderListSlice"
+import {
+  fetchUserDetails,
+  updateUserDetails,
+} from "../redux/user/userDetailsSlice"
+import { fetchOrderList } from "../redux/order/orderListSlice"
 import { rootState } from "../redux"
 import { LinkContainer } from "react-router-bootstrap"
 

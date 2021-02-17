@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import { rootState } from "."
+import { rootState } from "../index"
 
-export const deleteUser = createAsyncThunk(
-  "userDelete/deleteUser",
-  async (id: string, thunkApi) => {
+export const updateProduct = createAsyncThunk(
+  "productUpdate/updateProduct",
+  async (updateData, thunkApi) => {
     const {
       currentUser: { userInfo: user },
     } = thunkApi.getState() as rootState
@@ -17,8 +17,9 @@ export const deleteUser = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.delete(
-        `http://localhost:6960/api/users/${id}`,
+      const { data } = await axios.put(
+        `http://localhost:6960/api/products`,
+        updateData,
         config
       )
 
@@ -37,34 +38,38 @@ const initialState = {
   loading: false,
   success: false,
   error: "",
+  product: {} as any,
 }
 
-const userDeleteSlice = createSlice({
-  name: "userDelete",
+const productUpdateSlice = createSlice({
+  name: "productUpdate",
   initialState,
 
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(deleteUser.pending, (state, action) => ({
+    builder.addCase(updateProduct.pending, (state, action) => ({
       loading: true,
       error: "",
       success: false,
+      product: {} as any,
     }))
 
-    builder.addCase(deleteUser.fulfilled, (state, action) => ({
+    builder.addCase(updateProduct.fulfilled, (state, action) => ({
       loading: false,
       error: "",
       success: true,
+      product: action.payload,
     }))
 
-    builder.addCase(deleteUser.rejected, (state, action) => ({
+    builder.addCase(updateProduct.rejected, (state, action) => ({
       loading: false,
       success: false,
       error: action.payload as string,
+      product: {} as any,
     }))
   },
 })
 
-const { reducer: userDeleteReducer } = userDeleteSlice
-export default userDeleteReducer
+const { reducer: productUpdateReducer } = productUpdateSlice
+export default productUpdateReducer

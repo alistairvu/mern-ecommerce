@@ -3,7 +3,7 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from "react-bootstrap"
 import { Loader, Message, Rating } from "../components"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchProductDetails } from "../redux/productDetailsSlice"
+import { fetchProductDetails } from "../redux/product/productDetailsSlice"
 
 export const ProductScreen = () => {
   const [quantity, setQuantity] = useState<number>(1)

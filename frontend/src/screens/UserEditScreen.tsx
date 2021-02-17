@@ -4,8 +4,8 @@ import { Form, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader, FormContainer } from "../components"
 import { rootState } from "../redux"
-import { fetchUserDetails } from "../redux/userDetailsSlice"
-import { updateUser, resetUserUpdate } from "../redux/userUpdateSlice"
+import { fetchUserDetails } from "../redux/user/userDetailsSlice"
+import { updateUser, resetUserUpdate } from "../redux/user/userUpdateSlice"
 
 export const UserEditScreen = () => {
   const params = useParams<{ id: string }>()

@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
 import { LinkContainer } from "react-router-bootstrap"
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap"
-import { userLogout } from "../redux/userAuthSlice"
+import { userLogout } from "../redux/user/userAuthSlice"
 import { rootState } from "../redux"
-import { resetUserDetails } from "../redux/userDetailsSlice"
-import { resetOrderList } from "../redux/orderListSlice"
+import { resetUserDetails } from "../redux/user/userDetailsSlice"
+import { resetOrderList } from "../redux/order/orderListSlice"
 import { useHistory } from "react-router-dom"
-import { resetUserList } from "../redux/userListSlice"
+import { resetUserList } from "../redux/user/userListSlice"
 
 export const Header = () => {
   const history = useHistory()

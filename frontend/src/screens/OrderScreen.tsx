@@ -4,11 +4,11 @@ import { Row, Col, ListGroup, Image, Card } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
 import { rootState } from "../redux"
-import { fetchOrderDetails } from "../redux/orderDetailsSlice"
+import { fetchOrderDetails } from "../redux/order/orderDetailsSlice"
 import axios from "axios"
 import { PayPalButton } from "react-paypal-button-v2"
-import { payOrder, payOrderReset } from "../redux/orderPaySlice"
-import { resetOrder } from "../redux/orderCreateSlice"
+import { payOrder, payOrderReset } from "../redux/order/orderPaySlice"
+import { resetOrder } from "../redux/order/orderCreateSlice"
 
 declare global {
   interface Window {

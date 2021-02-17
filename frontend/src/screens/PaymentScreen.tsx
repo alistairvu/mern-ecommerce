@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { CheckoutSteps, FormContainer } from "../components"
 import { rootState } from "../redux"
 import { savePaymentMethod } from "../redux/cartSlice"
-import { resetOrder } from "../redux/orderCreateSlice"
-import { resetOrderDetails } from "../redux/orderDetailsSlice"
+import { resetOrder } from "../redux/order/orderCreateSlice"
+import { resetOrderDetails } from "../redux/order/orderDetailsSlice"
 
 export const PaymentScreen = () => {
   const history = useHistory()

@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import { rootState } from "."
+import { rootState } from "../index"
+import { mergeUserDetails } from "./userDetailsSlice"
 
-export const deleteProduct = createAsyncThunk(
-  "productDelete/deleteProduct",
-  async (id: string, thunkApi) => {
+export const updateUser = createAsyncThunk(
+  "userUpdate/updateUser",
+  async (
+    userInfo: { _id: string; name: string; email: string; isAdmin: boolean },
+    thunkApi
+  ) => {
     const {
       currentUser: { userInfo: user },
     } = thunkApi.getState() as rootState
@@ -17,11 +21,13 @@ export const deleteProduct = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.delete(
-        `http://localhost:6960/api/products/${id}`,
+      const { data } = await axios.put(
+        `http://localhost:6960/api/users/${userInfo._id}`,
+        userInfo,
         config
       )
 
+      thunkApi.dispatch(mergeUserDetails(userInfo))
       return data
     } catch (error) {
       const message =
@@ -39,26 +45,28 @@ const initialState = {
   error: "",
 }
 
-const productDeleteSlice = createSlice({
-  name: "productDelete",
+const userUpdateSlice = createSlice({
+  name: "userDelete",
   initialState,
 
-  reducers: {},
+  reducers: {
+    resetUserUpdate: () => initialState,
+  },
 
   extraReducers: (builder) => {
-    builder.addCase(deleteProduct.pending, (state, action) => ({
+    builder.addCase(updateUser.pending, (state, action) => ({
       loading: true,
       error: "",
       success: false,
     }))
 
-    builder.addCase(deleteProduct.fulfilled, (state, action) => ({
+    builder.addCase(updateUser.fulfilled, (state, action) => ({
       loading: false,
       error: "",
       success: true,
     }))
 
-    builder.addCase(deleteProduct.rejected, (state, action) => ({
+    builder.addCase(updateUser.rejected, (state, action) => ({
       loading: false,
       success: false,
       error: action.payload as string,
@@ -66,5 +74,6 @@ const productDeleteSlice = createSlice({
   },
 })
 
-const { reducer: produceDeleteReducer } = productDeleteSlice
-export default produceDeleteReducer
+const { reducer: userUpdateReducer } = userUpdateSlice
+export const { resetUserUpdate } = userUpdateSlice.actions
+export default userUpdateReducer

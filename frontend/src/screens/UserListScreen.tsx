@@ -3,10 +3,10 @@ import { LinkContainer } from "react-router-bootstrap"
 import { Table, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
-import { fetchUserList } from "../redux/userListSlice"
+import { fetchUserList } from "../redux/user/userListSlice"
 import { rootState } from "../redux"
 import { useHistory } from "react-router-dom"
-import { deleteUser } from "../redux/userDeleteSlice"
+import { deleteUser } from "../redux/user/userDeleteSlice"
 
 export const UserListScreen = () => {
   const history = useHistory()

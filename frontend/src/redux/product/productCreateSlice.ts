@@ -1,19 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import { rootState } from "."
-import { mergeUserDetails } from "./userDetailsSlice"
+import { rootState } from "../index"
 
-export const updateUser = createAsyncThunk(
-  "userUpdate/updateUser",
-  async (
-    userInfo: { _id: string; name: string; email: string; isAdmin: boolean },
-    thunkApi
-  ) => {
+export const createProduct = createAsyncThunk(
+  "productCreate/createProduct",
+  async (_, thunkApi) => {
     const {
       currentUser: { userInfo: user },
     } = thunkApi.getState() as rootState
 
     try {
+      console.log(user.token)
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -21,13 +19,12 @@ export const updateUser = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.put(
-        `http://localhost:6960/api/users/${userInfo._id}`,
-        userInfo,
+      const { data } = await axios.post(
+        `http://localhost:6960/api/products`,
+        null,
         config
       )
 
-      thunkApi.dispatch(mergeUserDetails(userInfo))
       return data
     } catch (error) {
       const message =
@@ -43,37 +40,41 @@ const initialState = {
   loading: false,
   success: false,
   error: "",
+  product: {} as any,
 }
 
-const userUpdateSlice = createSlice({
-  name: "userDelete",
+const productCreateSlice = createSlice({
+  name: "productCreate",
   initialState,
 
   reducers: {
-    resetUserUpdate: () => initialState,
+    productCreateReset: () => initialState,
   },
 
   extraReducers: (builder) => {
-    builder.addCase(updateUser.pending, (state, action) => ({
+    builder.addCase(createProduct.pending, (state, action) => ({
       loading: true,
       error: "",
       success: false,
+      product: {} as any,
     }))
 
-    builder.addCase(updateUser.fulfilled, (state, action) => ({
+    builder.addCase(createProduct.fulfilled, (state, action) => ({
       loading: false,
       error: "",
       success: true,
+      product: action.payload,
     }))
 
-    builder.addCase(updateUser.rejected, (state, action) => ({
+    builder.addCase(createProduct.rejected, (state, action) => ({
       loading: false,
       success: false,
       error: action.payload as string,
+      product: {} as any,
     }))
   },
 })
 
-const { reducer: userUpdateReducer } = userUpdateSlice
-export const { resetUserUpdate } = userUpdateSlice.actions
-export default userUpdateReducer
+const { reducer: productCreate } = productCreateSlice
+export const { productCreateReset } = productCreateSlice.actions
+export default productCreate

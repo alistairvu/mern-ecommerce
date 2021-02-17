@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Row, Col } from "react-bootstrap"
 import { Product, Loader, Message } from "../components"
-import { fetchProductList } from "../redux/productListSlice"
+import { fetchProductList } from "../redux/product/productListSlice"
 
 interface ProductListInterface {
   loading: boolean

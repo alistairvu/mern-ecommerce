@@ -3,20 +3,37 @@ import { LinkContainer } from "react-router-bootstrap"
 import { Table, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
-import { fetchProductList } from "../redux/productListSlice"
+import { fetchProductList } from "../redux/product/productListSlice"
 import { rootState } from "../redux"
 import { useHistory } from "react-router-dom"
-import { deleteProduct } from "../redux/productDeleteSlice"
+import {
+  deleteProduct,
+  productDeleteReset,
+} from "../redux/product/productDeleteSlice"
+import {
+  createProduct,
+  productCreateReset,
+} from "../redux/product/productCreateSlice"
 
 export const ProductListScreen = () => {
   const history = useHistory()
 
   const dispatch = useDispatch()
-  const { products, loading, error } = useSelector(
-    (state: rootState) => state.productList
-  )
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+  } = useSelector((state: rootState) => state.productList)
   const { userInfo } = useSelector((state: rootState) => state.currentUser)
-  const { success } = useSelector((state: rootState) => state.productDelete)
+  const { success: deleteSuccess } = useSelector(
+    (state: rootState) => state.productDelete
+  )
+  const {
+    success: createSuccess,
+    product: createdProduct,
+    loading: createLoading,
+    error: createError,
+  } = useSelector((state: rootState) => state.productCreate)
 
   const deleteHandler = (id: string) => {
     if (window.confirm("Are you sure?")) {
@@ -24,15 +41,35 @@ export const ProductListScreen = () => {
     }
   }
 
-  const createProductHandler = () => {}
+  const createProductHandler = () => {
+    dispatch(createProduct())
+  }
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(fetchProductList())
-    } else {
+    return () => {
+      dispatch(productDeleteReset())
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(productCreateReset())
+    if (!userInfo.isAdmin) {
       history.push("/login")
     }
-  }, [history, userInfo, dispatch, success])
+
+    if (createSuccess) {
+      history.push(`/admin/product/${createdProduct._id}/edit`)
+    } else {
+      dispatch(fetchProductList())
+    }
+  }, [
+    history,
+    userInfo,
+    dispatch,
+    deleteSuccess,
+    createSuccess,
+    createdProduct,
+  ])
 
   return (
     <div>
@@ -42,15 +79,16 @@ export const ProductListScreen = () => {
         </Col>
         <Col className="text-right">
           <Button className="my-3" onClick={createProductHandler}>
-            <i className="fas fa-plus" />
-            Create Product
+            <i className="fas fa-plus" /> Create Product
           </Button>
         </Col>
       </Row>
-      {loading && <Loader />}
-      {error && <Message variant="danger">{error}</Message>}
-      {success && <Message variant="success">Product deleted!</Message>}
-      {!loading && !error && (
+      {productsLoading && <Loader />}
+      {productsError && <Message variant="danger">{productsError}</Message>}
+      {createLoading && <Loader />}
+      {createError && <Message variant="danger">{createError}</Message>}
+      {deleteSuccess && <Message variant="success">Product deleted!</Message>}
+      {!productsLoading && !productsError && !createLoading && (
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>

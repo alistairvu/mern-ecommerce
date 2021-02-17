@@ -14,19 +14,21 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist"
-import productDetailReducer from "./productDetailsSlice"
-import productListReducer from "./productListSlice"
+import productDetailReducer from "./product/productDetailsSlice"
+import productListReducer from "./product/productListSlice"
 import cartReducer from "./cartSlice"
-import userAuthReducer from "./userAuthSlice"
-import userDetailsReducer from "./userDetailsSlice"
-import orderCreateReducer from "./orderCreateSlice"
-import orderDetailsReducer from "./orderDetailsSlice"
-import orderPayReducer from "./orderPaySlice"
-import orderListReducer from "./orderListSlice"
-import userListReducer from "./userListSlice"
-import userDeleteReducer from "./userDeleteSlice"
-import userUpdateReducer from "./userUpdateSlice"
-import productDeleteReducer from "./productDeleteSlice"
+import userAuthReducer from "./user/userAuthSlice"
+import userDetailsReducer from "./user/userDetailsSlice"
+import orderCreateReducer from "./order/orderCreateSlice"
+import orderDetailsReducer from "./order/orderDetailsSlice"
+import orderPayReducer from "./order/orderPaySlice"
+import orderListReducer from "./order/orderListSlice"
+import userListReducer from "./user/userListSlice"
+import userDeleteReducer from "./user/userDeleteSlice"
+import userUpdateReducer from "./user/userUpdateSlice"
+import productDeleteReducer from "./product/productDeleteSlice"
+import productCreateReducer from "./product/productCreateSlice"
+import productUpdateReducer from "./product/productUpdateSlice"
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -42,6 +44,8 @@ const rootReducer = combineReducers({
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
   productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
 })
 
 const persistConfig = {

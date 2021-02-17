@@ -3,7 +3,7 @@ import { Link, useLocation, useHistory } from "react-router-dom"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader, FormContainer, CheckoutSteps } from "../components"
-import { userLogin } from "../redux/userAuthSlice"
+import { loginUser } from "../redux/userAuthSlice"
 import { rootState } from "../redux"
 
 export const LoginScreen = () => {
@@ -26,7 +26,7 @@ export const LoginScreen = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(userLogin({ email, password }))
+    dispatch(loginUser({ email, password }))
   }
 
   return (

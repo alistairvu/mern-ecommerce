@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-export const userRegister = createAsyncThunk(
-  "user/userRegister",
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
   async (
     {
       name,
@@ -35,8 +35,8 @@ export const userRegister = createAsyncThunk(
   }
 )
 
-export const userLogin = createAsyncThunk(
-  "user/userLogin",
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
   async (
     { email, password }: { email: string; password: string },
     thunkApi
@@ -88,37 +88,37 @@ const userAuthSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(userLogin.pending, (state, action) => ({
+    builder.addCase(loginUser.pending, (state, action) => ({
       error: "",
       userInfo: blankUser,
       loading: true,
     }))
 
-    builder.addCase(userLogin.rejected, (state, action) => ({
+    builder.addCase(loginUser.rejected, (state, action) => ({
       loading: false,
       userInfo: blankUser,
       error: action.payload as string,
     }))
 
-    builder.addCase(userLogin.fulfilled, (state, action) => ({
+    builder.addCase(loginUser.fulfilled, (state, action) => ({
       loading: false,
       userInfo: action.payload,
       error: "",
     }))
 
-    builder.addCase(userRegister.pending, (state, action) => ({
+    builder.addCase(registerUser.pending, (state, action) => ({
       error: "",
       userInfo: blankUser,
       loading: true,
     }))
 
-    builder.addCase(userRegister.rejected, (state, action) => ({
+    builder.addCase(registerUser.rejected, (state, action) => ({
       loading: false,
       userInfo: blankUser,
       error: action.payload as string,
     }))
 
-    builder.addCase(userRegister.fulfilled, (state, action) => ({
+    builder.addCase(registerUser.fulfilled, (state, action) => ({
       loading: false,
       userInfo: action.payload,
       error: "",

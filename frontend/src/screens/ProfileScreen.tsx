@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import { Form, Button, Row, Col, Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
-import { getUserDetails, updateUserDetails } from "../redux/userDetailsSlice"
+import { fetchUserDetails, updateUserDetails } from "../redux/userDetailsSlice"
 import { fetchOrderList } from "../redux/orderListSlice"
 import { rootState } from "../redux"
 import { LinkContainer } from "react-router-bootstrap"
@@ -36,7 +36,7 @@ export const ProfileScreen = () => {
       history.push("/login")
     } else {
       if (user._id.length <= 0) {
-        dispatch(getUserDetails("profile"))
+        dispatch(fetchUserDetails("profile"))
         dispatch(fetchOrderList())
         console.log("FETCHING")
       } else {

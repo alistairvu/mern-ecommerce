@@ -32,3 +32,11 @@ export const protect = asyncHandler(async (req: any, res: any, next: any) => {
     res.status(401).json({ message: "Not authorised, token failed" })
   }
 })
+
+export const admin = (req: any, res: any, next: any) => {
+  if (req.user && req.user.isAdmin) {
+    next()
+  } else {
+    res.status(401).json({ message: "Not authorised as admin" })
+  }
+}

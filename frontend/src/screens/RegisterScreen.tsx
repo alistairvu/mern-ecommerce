@@ -3,7 +3,7 @@ import { Link, useLocation, useHistory } from "react-router-dom"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader, FormContainer } from "../components"
-import { userRegister } from "../redux/userAuthSlice"
+import { registerUser } from "../redux/userAuthSlice"
 import { rootState } from "../redux"
 
 export const RegisterScreen = () => {
@@ -35,7 +35,7 @@ export const RegisterScreen = () => {
       return
     }
 
-    dispatch(userRegister({ name, email, password }))
+    dispatch(registerUser({ name, email, password }))
   }
 
   return (

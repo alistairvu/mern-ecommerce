@@ -5,8 +5,11 @@ import { userLogout } from "../redux/userAuthSlice"
 import { rootState } from "../redux"
 import { resetUserDetails } from "../redux/userDetailsSlice"
 import { resetOrderList } from "../redux/orderListSlice"
+import { useHistory } from "react-router-dom"
+import { resetUserList } from "../redux/userListSlice"
 
 export const Header = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
   const currentUser = useSelector((state: rootState) => state.currentUser)
   const { userInfo } = currentUser
@@ -15,6 +18,8 @@ export const Header = () => {
     dispatch(userLogout())
     dispatch(resetUserDetails())
     dispatch(resetOrderList())
+    dispatch(resetUserList())
+    history.push("/")
   }
 
   return (
@@ -27,6 +32,21 @@ export const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="admin-menu">
+                  <LinkContainer to="/admin/user-list">
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to="/admin/product-list">
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to="/admin/order-list">
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fas fa-shopping-cart"></i> Cart
@@ -37,6 +57,7 @@ export const Header = () => {
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>

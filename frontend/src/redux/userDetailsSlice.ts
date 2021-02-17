@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import { rootState } from "."
 
-export const getUserDetails = createAsyncThunk(
-  "userDetails/getUserDetails",
+export const fetchUserDetails = createAsyncThunk(
+  "userDetails/fetchUserDetails",
   async (id: string, thunkApi) => {
     const {
       currentUser: { userInfo: user },
@@ -74,6 +74,7 @@ const blankUser = {
   _id: "",
   name: "",
   email: "",
+  isAdmin: false,
   token: "",
 }
 
@@ -90,21 +91,25 @@ const userDetailsSlice = createSlice({
 
   reducers: {
     resetUserDetails: () => initialState,
+    mergeUserDetails: (state, action) => ({
+      ...state,
+      user: { ...state.user, ...action.payload },
+    }),
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getUserDetails.pending, (state, action) => ({
+    builder.addCase(fetchUserDetails.pending, (state, action) => ({
       success: false,
       error: "",
       user: blankUser,
       loading: true,
     }))
 
-    builder.addCase(getUserDetails.fulfilled, (state, action) => {
+    builder.addCase(fetchUserDetails.fulfilled, (state, action) => {
       return { success: false, loading: false, user: action.payload, error: "" }
     })
 
-    builder.addCase(getUserDetails.rejected, (state, action) => ({
+    builder.addCase(fetchUserDetails.rejected, (state, action) => ({
       success: false,
       loading: false,
       user: blankUser,
@@ -135,5 +140,5 @@ const userDetailsSlice = createSlice({
 })
 
 const { reducer: userDetailsReducer } = userDetailsSlice
-export const { resetUserDetails } = userDetailsSlice.actions
+export const { resetUserDetails, mergeUserDetails } = userDetailsSlice.actions
 export default userDetailsReducer

@@ -4,7 +4,7 @@ import { rootState } from "../index"
 
 export const updateProduct = createAsyncThunk(
   "productUpdate/updateProduct",
-  async (updateData, thunkApi) => {
+  async (updateData: any, thunkApi) => {
     const {
       currentUser: { userInfo: user },
     } = thunkApi.getState() as rootState
@@ -18,7 +18,7 @@ export const updateProduct = createAsyncThunk(
       }
 
       const { data } = await axios.put(
-        `http://localhost:6960/api/products`,
+        `http://localhost:6960/api/products/${updateData.id}`,
         updateData,
         config
       )
@@ -35,7 +35,7 @@ export const updateProduct = createAsyncThunk(
 )
 
 const initialState = {
-  loading: false,
+  loading: true,
   success: false,
   error: "",
   product: {} as any,
@@ -45,7 +45,9 @@ const productUpdateSlice = createSlice({
   name: "productUpdate",
   initialState,
 
-  reducers: {},
+  reducers: {
+    productUpdateReset: () => initialState,
+  },
 
   extraReducers: (builder) => {
     builder.addCase(updateProduct.pending, (state, action) => ({
@@ -72,4 +74,5 @@ const productUpdateSlice = createSlice({
 })
 
 const { reducer: productUpdateReducer } = productUpdateSlice
+export const { productUpdateReset } = productUpdateSlice.actions
 export default productUpdateReducer

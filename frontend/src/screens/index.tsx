@@ -1,16 +1,17 @@
 import { HomeScreen } from "./HomeScreen"
 import { ProductScreen } from "./ProductScreen"
 import { CartScreen } from "./CartScreen"
-import { LoginScreen } from "./LoginScreen"
-import { RegisterScreen } from "./RegisterScreen"
+import { LoginScreen } from "./auth/LoginScreen"
+import { RegisterScreen } from "./auth/RegisterScreen"
 import { ProfileScreen } from "./ProfileScreen"
 import { PaymentScreen } from "./PaymentScreen"
 import { ShippingScreen } from "./ShippingScreen"
 import { PlaceOrderScreen } from "./PlaceOrderScreen"
 import { OrderScreen } from "./OrderScreen"
-import { UserListScreen } from "./UserListScreen"
-import { UserEditScreen } from "./UserEditScreen"
-import { ProductListScreen } from "./ProductListScreen"
+import { UserListScreen } from "./admin/UserListScreen"
+import { UserEditScreen } from "./admin/UserEditScreen"
+import { ProductListScreen } from "./admin/ProductListScreen"
+import { ProductEditScreen } from "./admin/ProductEditScreen"
 
 export {
   HomeScreen,
@@ -26,4 +27,5 @@ export {
   UserListScreen,
   UserEditScreen,
   ProductListScreen,
+  ProductEditScreen,
 }

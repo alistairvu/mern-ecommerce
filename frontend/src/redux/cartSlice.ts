@@ -48,6 +48,8 @@ const cartSlice = createSlice({
     savePaymentMethod: (state, action) => {
       state.paymentMethod = action.payload
     },
+
+    resetCart: (state) => ({ ...state, cartItems: [] as any[] }),
   },
 
   extraReducers: (builder) => {
@@ -82,5 +84,6 @@ export const {
   removeItemFromCart,
   saveShippingAddress,
   savePaymentMethod,
+  resetCart,
 } = cartSlice.actions
 export default cartReducer

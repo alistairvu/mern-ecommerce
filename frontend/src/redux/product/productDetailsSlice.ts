@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 export const fetchProductDetails = createAsyncThunk(
-  "productDetails/fetchProductDetail",
+  "productDetails/fetchProductDetails",
   async (id: string, thunkApi) => {
     try {
       const { data } = await axios.get(
@@ -28,7 +28,13 @@ const productDetailSlice = createSlice({
     loading: true,
   },
 
-  reducers: {},
+  reducers: {
+    resetProductDetails: () => ({
+      product: {} as ProductInterface,
+      error: "",
+      loading: true,
+    }),
+  },
 
   extraReducers: (builder) => {
     builder.addCase(fetchProductDetails.pending, (state, action) => ({
@@ -52,4 +58,5 @@ const productDetailSlice = createSlice({
 })
 
 const { reducer: productDetailReducer } = productDetailSlice
+export const { resetProductDetails } = productDetailSlice.actions
 export default productDetailReducer

@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Message, Loader } from "../components"
 import { fetchProductList } from "../redux/productListSlice"
 import { rootState } from "../redux"
-import { useHistory, useParams } from "react-router-dom"
-import { deleteUser } from "../redux/userDeleteSlice"
+import { useHistory } from "react-router-dom"
 import { deleteProduct } from "../redux/productDeleteSlice"
 
 export const ProductListScreen = () => {

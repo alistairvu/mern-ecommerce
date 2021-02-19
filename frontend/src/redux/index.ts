@@ -29,6 +29,8 @@ import userUpdateReducer from "./user/userUpdateSlice"
 import productDeleteReducer from "./product/productDeleteSlice"
 import productCreateReducer from "./product/productCreateSlice"
 import productUpdateReducer from "./product/productUpdateSlice"
+import orderListAdminReducer from "./order/orderListAdminSlice"
+import orderDeliveredReducer from "./order/orderDeliveredSlice"
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -40,12 +42,14 @@ const rootReducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderList: orderListReducer,
+  orderListAdmin: orderListAdminReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
+  orderDelivered: orderDeliveredReducer,
 })
 
 const persistConfig = {

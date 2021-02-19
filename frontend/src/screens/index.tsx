@@ -12,6 +12,7 @@ import { UserListScreen } from "./admin/UserListScreen"
 import { UserEditScreen } from "./admin/UserEditScreen"
 import { ProductListScreen } from "./admin/ProductListScreen"
 import { ProductEditScreen } from "./admin/ProductEditScreen"
+import { OrderListScreen } from "./admin/OrderListScreen"
 
 export {
   HomeScreen,
@@ -28,4 +29,5 @@ export {
   UserEditScreen,
   ProductListScreen,
   ProductEditScreen,
+  OrderListScreen,
 }

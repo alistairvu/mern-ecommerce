@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import { rootState } from "../index"
 
-export const fetchOrderList = createAsyncThunk(
-  "orderList/getMyOrders",
+export const fetchAdminOrderList = createAsyncThunk(
+  "orderListAdmin/getOrders",
   async (_, thunkApi) => {
     const {
       currentUser: { userInfo },
@@ -17,7 +17,7 @@ export const fetchOrderList = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.get(`/api/orders/my-orders`, config)
+      const { data } = await axios.get(`/api/orders`, config)
 
       console.log(data)
       return data
@@ -38,28 +38,28 @@ const initialState = {
   orderList: [] as any[],
 }
 
-const orderListSlice = createSlice({
-  name: "orderList",
+const orderListAdminSlice = createSlice({
+  name: "orderListAdmin",
   initialState: initialState,
 
   reducers: {
-    resetOrderList: () => initialState,
+    resetOrderListAdmin: () => initialState,
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchOrderList.pending, (state, action) => ({
+    builder.addCase(fetchAdminOrderList.pending, (state, action) => ({
       error: "",
       loading: true,
       orderList: [] as any[],
     }))
 
-    builder.addCase(fetchOrderList.rejected, (state, action) => ({
+    builder.addCase(fetchAdminOrderList.rejected, (state, action) => ({
       loading: false,
       error: action.payload as string,
       orderList: [] as any[],
     }))
 
-    builder.addCase(fetchOrderList.fulfilled, (state, action) => ({
+    builder.addCase(fetchAdminOrderList.fulfilled, (state, action) => ({
       error: "",
       loading: false,
       orderList: action.payload,
@@ -67,6 +67,6 @@ const orderListSlice = createSlice({
   },
 })
 
-const { reducer: orderListReducer } = orderListSlice
-export const { resetOrderList } = orderListSlice.actions
-export default orderListReducer
+const { reducer: orderListAdminReducer } = orderListAdminSlice
+export const { resetOrderListAdmin } = orderListAdminSlice.actions
+export default orderListAdminReducer

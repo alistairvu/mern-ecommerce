@@ -48,10 +48,12 @@ export const getOrderById = asyncHandler(async (req: UserRequest, res) => {
   const { id } = req.params
   const order = await Order.findById(id).populate("user", "name email")
   const rawOrder = await Order.findById(id)
-  console.log(rawOrder.user.toString() === req.user._id.toString())
 
   if (order) {
-    if (rawOrder.user.toString() === req.user._id.toString()) {
+    if (
+      rawOrder.user.toString() === req.user._id.toString() ||
+      req.user.isAdmin
+    ) {
       res.json(order)
     } else {
       res.status(400).json({ message: "You cannot view this order." })
@@ -86,11 +88,38 @@ export const updateOrderToPaid = asyncHandler(async (req: UserRequest, res) => {
   }
 })
 
+// @desc    Update order to delivered
+// @route   PUT /api/orders/:id/delivered
+// @access  Private
+export const updateOrderToDelivered = asyncHandler(
+  async (req: UserRequest, res) => {
+    const { id } = req.params
+    const order = await Order.findById(id)
+
+    if (order) {
+      order.isDelivered = true
+      order.deliveredAt = new Date()
+      const updatedOrder = await order.save()
+      res.json(updatedOrder)
+    } else {
+      res.status(404).json({ message: "Order not found" })
+    }
+  }
+)
+
 // @desc    Get logged in user's orders
 // @route   GET /api/orders/my-orders
 // @access  Private
 export const getMyOrders = asyncHandler(async (req: UserRequest, res) => {
   console.log(req.user)
   const orders = await Order.find({ user: req.user._id })
+  res.json(orders)
+})
+
+// @desc    Get logged in user's orders
+// @route   GET /api/orders/
+// @access  Private - Admin
+export const getOrders = asyncHandler(async (req: UserRequest, res) => {
+  const orders = await Order.find({}).populate("user", "name email")
   res.json(orders)
 })

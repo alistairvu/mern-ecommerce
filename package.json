@@ -28,7 +28,7 @@
     "typescript": "^4.1.5"
   },
   "scripts": {
-    "start": "concurrently \"nodemon\" \"cd frontend && yarn start\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --prefix frontend && yarn run build --prefix frontend"
+    "start": "nodemon",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && yarn && yarn run build && cd .."
   }
 }

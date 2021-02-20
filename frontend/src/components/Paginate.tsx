@@ -18,8 +18,6 @@ export const Paginate = ({
     return null
   }
 
-  console.log([...Array(pages).keys()])
-
   const generateLink = (x: number) => {
     if (isAdmin) {
       return `/admin/product-list/page/${x + 1}`

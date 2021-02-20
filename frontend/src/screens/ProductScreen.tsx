@@ -1,6 +1,6 @@
 import { Link, useHistory, useParams } from "react-router-dom"
 import { Row, Col, Image, ListGroup, Card, Button, Form } from "react-bootstrap"
-import { Loader, Message, Rating } from "../components"
+import { Loader, Message, Rating, Meta } from "../components"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchProductDetails } from "../redux/product/productDetailsSlice"
@@ -77,6 +77,7 @@ export const ProductScreen = () => {
 
   return (
     <div>
+      <Meta title={`ProShop | ${product!.name}`} />
       <Link to="/" className="btn btn-light my-3">
         Go Back
       </Link>

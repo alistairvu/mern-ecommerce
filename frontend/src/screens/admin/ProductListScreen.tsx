@@ -2,10 +2,10 @@ import { useEffect } from "react"
 import { LinkContainer } from "react-router-bootstrap"
 import { Table, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { Message, Loader } from "../../components"
+import { Message, Loader, Paginate } from "../../components"
 import { fetchProductList } from "../../redux/product/productListSlice"
 import { rootState } from "../../redux"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import {
   deleteProduct,
   productDeleteReset,
@@ -17,10 +17,13 @@ import {
 
 export const ProductListScreen = () => {
   const history = useHistory()
+  const { pageNumber } = useParams<{ pageNumber: string }>()
 
   const dispatch = useDispatch()
   const {
     products,
+    pages,
+    page,
     loading: productsLoading,
     error: productsError,
   } = useSelector((state: rootState) => state.productList)
@@ -60,7 +63,7 @@ export const ProductListScreen = () => {
     if (createSuccess && createdProduct._id) {
       history.push(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(fetchProductList())
+      dispatch(fetchProductList(pageNumber))
     }
   }, [
     history,
@@ -69,6 +72,7 @@ export const ProductListScreen = () => {
     deleteSuccess,
     createSuccess,
     createdProduct,
+    pageNumber,
   ])
 
   return (
@@ -127,6 +131,7 @@ export const ProductListScreen = () => {
           </tbody>
         </Table>
       )}
+      <Paginate pages={pages} page={page} isAdmin />
     </div>
   )
 }

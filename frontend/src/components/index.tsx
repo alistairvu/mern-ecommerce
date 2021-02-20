@@ -6,6 +6,9 @@ import { Loader } from "./Loader"
 import { Message } from "./Message"
 import { FormContainer } from "./FormContainer"
 import { CheckoutSteps } from "./CheckoutSteps"
+import { SearchBox } from "./SearchBox"
+import { Paginate } from "./Paginate"
+import { Meta } from "./Meta"
 
 export {
   Header,
@@ -16,4 +19,7 @@ export {
   Message,
   FormContainer,
   CheckoutSteps,
+  SearchBox,
+  Paginate,
+  Meta,
 }

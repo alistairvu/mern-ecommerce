@@ -7,6 +7,7 @@ import { resetUserDetails } from "../redux/user/userDetailsSlice"
 import { resetOrderList } from "../redux/order/orderListSlice"
 import { useHistory } from "react-router-dom"
 import { resetUserList } from "../redux/user/userListSlice"
+import { SearchBox } from "./SearchBox"
 
 export const Header = () => {
   const history = useHistory()
@@ -31,6 +32,7 @@ export const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <SearchBox />
             <Nav className="ml-auto">
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="admin-menu">

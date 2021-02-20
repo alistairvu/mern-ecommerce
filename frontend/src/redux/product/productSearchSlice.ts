@@ -1,11 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-export const fetchProductList = createAsyncThunk(
-  "productList/fetchProductList",
-  async (pageNumber: string = "1", thunkApi) => {
+export const fetchResults = createAsyncThunk(
+  "productSearch/fetchResults",
+  async (
+    { keyword = "", pageNumber = "" }: { keyword: string; pageNumber: string },
+    thunkApi
+  ) => {
     try {
-      const { data } = await axios.get(`/api/products?pageNumber=${pageNumber}`)
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      )
       return data
     } catch (error) {
       console.log(error)
@@ -26,24 +31,24 @@ const initialState = {
   loading: false,
 }
 
-const productListSlice = createSlice({
-  name: "productList",
+const productSearchSlice = createSlice({
+  name: "productSearch",
   initialState,
 
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(fetchProductList.pending, (state, action) => ({
+    builder.addCase(fetchResults.pending, (state, action) => ({
       ...initialState,
       loading: true,
     }))
 
-    builder.addCase(fetchProductList.rejected, (state, action) => ({
+    builder.addCase(fetchResults.rejected, (state, action) => ({
       ...initialState,
       error: action.payload as string,
     }))
 
-    builder.addCase(fetchProductList.fulfilled, (state, action) => ({
+    builder.addCase(fetchResults.fulfilled, (state, action) => ({
       ...initialState,
       products: action.payload.products,
       pages: action.payload.pages,
@@ -52,5 +57,5 @@ const productListSlice = createSlice({
   },
 })
 
-const { reducer: productListReducer } = productListSlice
-export default productListReducer
+const { reducer: productSearchReducer } = productSearchSlice
+export default productSearchReducer

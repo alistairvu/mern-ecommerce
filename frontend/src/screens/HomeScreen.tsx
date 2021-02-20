@@ -1,28 +1,26 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Row, Col } from "react-bootstrap"
-import { Product, Loader, Message } from "../components"
+import { Product, Loader, Message, Paginate, Meta } from "../components"
 import { fetchProductList } from "../redux/product/productListSlice"
-
-interface ProductListInterface {
-  loading: boolean
-  error: string
-  products: ProductInterface[]
-}
+import { useParams } from "react-router-dom"
+import { rootState } from "../redux"
 
 export const HomeScreen = () => {
   const dispatch = useDispatch()
-  const productList = useSelector(
-    (state: { productList: any }) => state.productList
-  )
-  const { loading, error, products }: ProductListInterface = productList
+  const productList = useSelector((state: rootState) => state.productList)
+  const { loading, error, products, page, pages } = productList
+
+  const params = useParams<{ pageNumber?: string }>()
+  const pageNumber = params.pageNumber || "1"
 
   useEffect(() => {
-    dispatch(fetchProductList())
-  }, [dispatch])
+    dispatch(fetchProductList(pageNumber))
+  }, [dispatch, pageNumber])
 
   return (
     <div>
+      <Meta title="ProShop | Home" />
       <h1>Latest Products</h1>
       {loading && <Loader />}
       {error && <Message variant="danger">{error}</Message>}
@@ -34,6 +32,7 @@ export const HomeScreen = () => {
             </Col>
           ))}
       </Row>
+      <Paginate page={Number(page)} pages={Number(pages)} />
     </div>
   )
 }

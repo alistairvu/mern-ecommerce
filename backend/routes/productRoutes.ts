@@ -2,7 +2,7 @@ import express from "express"
 import {
   createProduct,
   deleteProduct,
-  getAllProducts,
+  getProducts,
   getProductById,
   updateProduct,
   createProductReview,
@@ -10,7 +10,7 @@ import {
 import { protect, admin } from "../middleware/authMiddleware"
 
 const router = express.Router()
-router.route("/").get(getAllProducts).post(protect, admin, createProduct)
+router.route("/").get(getProducts).post(protect, admin, createProduct)
 router
   .route("/:id")
   .get(getProductById)

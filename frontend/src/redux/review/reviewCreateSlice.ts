@@ -4,7 +4,10 @@ import { rootState } from ".."
 
 export const createReview = createAsyncThunk(
   "reviewCreate/createReview",
-  async (id: string, thunkApi) => {
+  async (
+    { id, review }: { id: string; review: { rating: number; comment: string } },
+    thunkApi
+  ) => {
     const {
       currentUser: { userInfo: user },
     } = thunkApi.getState() as rootState
@@ -17,7 +20,11 @@ export const createReview = createAsyncThunk(
         },
       }
 
-      const { data } = await axios.delete(`/api/products/${id}`, config)
+      const { data } = await axios.post(
+        `/api/products/${id}/reviews`,
+        review,
+        config
+      )
 
       return data
     } catch (error) {
@@ -45,21 +52,18 @@ const reviewCreateSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(createReview.pending, (state, action) => ({
+    builder.addCase(createReview.pending, () => ({
+      ...initialState,
       loading: true,
-      error: "",
-      success: false,
     }))
 
-    builder.addCase(createReview.fulfilled, (state, action) => ({
-      loading: false,
-      error: "",
+    builder.addCase(createReview.fulfilled, () => ({
+      ...initialState,
       success: true,
     }))
 
-    builder.addCase(createReview.rejected, (state, action) => ({
-      loading: false,
-      success: false,
+    builder.addCase(createReview.rejected, (_, action) => ({
+      ...initialState,
       error: action.payload as string,
     }))
   },
